@@ -9,3 +9,4 @@ Kubernetes & Docker project.
 - `kubectl get pods -n group4`: List all the pods with the true name
 - `kubectl delete pod <pod_name> -n group4`: Delete a pod
 - `kubectl delete --all job -n group4`: Delete every job in the group
+- `kubectl exec -it <deployment_name> -n group4 -- ../bin/bash`: acces to the terminal

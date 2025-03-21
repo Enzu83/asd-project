@@ -18,6 +18,8 @@ spec:
       restartPolicy: Never
       volumes:
         - name: gis-pvc
+          persistentVolumeClaim:
+            claimName : gis-pvc
       securityContext:
         runAsUser: 1000
         runAsGroup: 1000

@@ -1,5 +1,5 @@
 apiVersion: apps/v1
-kind : Deployement
+kind : Deployment
 metadata:
   name: manual-test
   namespace: group4
@@ -8,24 +8,24 @@ spec:
   selector:
     matchLabels:
       app: manual-test
-template:
-  metadata:
-    labels:
-      app: manual-test
-  spec:
-    securityContext:
-      runAsUser: 1000
-      runAsGroup: 1000
-    containers:
-    - name: manual-test
-      command: ["sleep", "infinity"]
-      image: ubuntu
-      imagePullPolicy: Always
-      columeMounts:
+  template:
+    metadata:
+      labels:
+        app: manual-test
+    spec:
+      securityContext:
+        runAsUser: 1000
+        runAsGroup: 1000
+      containers:
+      - name: manual-test
+        command: ["sleep", "infinity"]
+        image: ubuntu
+        imagePullPolicy: Always
+        volumeMounts:
+        - name: gis-data
+          mountPath: /data
+        resources: {}
+      volumes:
       - name: gis-data
-        mountPath: /data
-      resources: {}
-    volumes:
-    - name: gis-data
-      persistentVolumeClaim:
-        claimName : gis-pvc
+        persistentVolumeClaim:
+          claimName : gis-pvc
