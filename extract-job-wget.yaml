@@ -1,0 +1,20 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: extract-geojson-wget
+  namespace: group4
+spec:
+  template:
+    spec:
+      containers:
+      - name: extract-geojson-wget
+        image: mwendler/wget:latest
+        command: ["sh", "-c"]
+        args: ["mkdir -p /data/extraction && \
+                wget -O /data/extraction/companies-march-2025.geojson --no-check-certificate https://dataworks.calderdale.gov.uk/download/emg4m/62p/companies-march-2025.geojson"]
+        volumeMounts:
+          - name: gis-pvc
+            mountPath: /data
+      restartPolicy: Never
+      volumes:
+        - name: gis-pvc

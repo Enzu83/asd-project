@@ -15,7 +15,7 @@ template:
   spec:
     securityContext:
       runAsUser: 1000
-      runAsGroup : 1000
+      runAsGroup: 1000
     containers:
     - name: manual-test
       command: ["sleep", "infinity"]
@@ -23,9 +23,9 @@ template:
       imagePullPolicy: Always
       columeMounts:
       - name: gis-data
-        mountPath : /data
+        mountPath: /data
       resources: {}
     volumes:
     - name: gis-data
       persistentVolumeClaim:
-        claiName : gis-pvc
+        claimName : gis-pvc

@@ -1,0 +1,23 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: extract-geojson
+  namespace: group4
+spec:
+  template:
+    spec:
+      containers:
+      - name: extract-geojson
+        image: curlimages/curl:latest
+        command: ["sh", "-c"]
+        args: ["mkdir -p /data/extraction && \
+                curl -o /data/extraction/companies-march-2025.geojson https://dataworks.calderdale.gov.uk/download/emg4m/62p/companies-march-2025.geojson"]
+        volumeMounts:
+          - name: gis-pvc
+            mountPath: /data
+      restartPolicy: Never
+      volumes:
+        - name: gis-pvc
+      securityContext:
+        runAsUser: 1000
+        runAsGroup: 1000
