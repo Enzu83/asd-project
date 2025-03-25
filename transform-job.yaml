@@ -12,7 +12,7 @@ spec:
         imagePullPolicy: Always
         command: ["sh", "-c"]
         args: ["mkdir -p /data/transformation && \
-                tippecanoe -r1 --read-parallel --drop-densest-as-needed --extend-zooms-if-still-dropping-zg --output=/data/transformation/companies-march-2025.mbtiles --force /data/extraction/companies-march-2025.geojson"]
+                tippecanoe -r1 --read-parallel --drop-densest-as-needed --extend-zooms-if-still-dropping -zg --output=/data/transformation/companies-march-2025.mbtiles --force /data/extraction/companies-march-2025.geojson"]
         volumeMounts:
           - name: gis-pvc
             mountPath: /data
