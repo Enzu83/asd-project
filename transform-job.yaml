@@ -8,8 +8,7 @@ spec:
     spec:
       containers:
       - name: transform-geojson
-        image: europe-west1-docker.pkg.dev/mptc-external-1/cs2025/tippecanoe:group4
-        imagePullPolicy: Always
+        image: europe-west1-docker.pkg.dev/mptc-external-1/cs2025/tippecanoe-group4:latest
         command: ["sh", "-c"]
         args: ["mkdir -p /data/transformation && \
                 tippecanoe -r1 --read-parallel --drop-densest-as-needed --extend-zooms-if-still-dropping -zg --output=/data/transformation/companies-march-2025.mbtiles --force /data/extraction/companies-march-2025.geojson"]
