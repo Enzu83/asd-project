@@ -1,0 +1,61 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Workflow
+metadata:
+  name: argo-workflow
+  namespace: group4
+  uid: 4f408aee-ff89-4d3a-ae25-294a6dbee5b0
+  resourceVersion: "13770014"
+  generation: 1
+  creationTimestamp: "2025-03-25T09:11:13Z"
+  labels:
+    example: "true"
+    workflows.argoproj.io/creator: system-serviceaccount-default-argo-workflows-server
+  managedFields:
+    - manager: argo
+      operation: Update
+      apiVersion: argoproj.io/v1alpha1
+      time: "2025-03-25T09:11:13Z"
+      fieldsType: FieldsV1
+      fieldsV1:
+        f:metadata:
+          f:labels:
+            ".": {}
+            f:example: {}
+            f:workflows.argoproj.io/creator: {}
+        f:spec: {}
+
+spec:
+  templates:
+    - name: extract-geojson
+      inputs:
+        parameters:
+          - name: url
+            value: "{{workflow.parameters.url}}"
+      outputs: {}
+      metadata: {}
+      container:
+      - name: extract-geojson
+        image: curlimages/curl:latest
+        command: ["sh", "-c"]
+        args: ["mkdir -p /data/extraction && \
+                curl -o /data/extraction/companies-march-2025.geojson https://dataworks.calderdale.gov.uk/download/emg4m/62p/companies-march-2025.geojson"]
+        volumeMounts:
+          - name: gis-pvc
+            mountPath: /data
+      volumes:
+        - name: gis-pvc
+          persistentVolumeClaim:
+            claimName : gis-pvc
+  
+  entrypoint: extract-geojson
+  arguments:
+    parameters:
+      - name: url
+        value: "https://dataworks.calderdale.gov.uk/download/emg4m/62p/companies-march-2025.geojson"
+  ttlStrategy:
+    secondsAfterCompletion: 300
+  podGC:
+    strategy: OnPodCompletion
+  workflowMetadata:
+    labels:
+      example: "true"
