@@ -1,0 +1,26 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: transform-geojson
+  namespace: group4
+spec:
+  template:
+    spec:
+      containers:
+      - name: transform-geojson
+        image: europe-west1-docker.pkg.dev/mptc-external-1/cs2025/tippecanoe:group4
+        imagePullPolicy: Always
+        command: ["sh", "-c"]
+        args: ["mkdir -p /data/transformation && \
+                tippecanoe -r1 --read-parallel --drop-densest-as-needed --extend-zooms-if-still-dropping-zg --output=/data/transformation/companies-march-2025.mbtiles --force /data/extraction/companies-march-2025.geojson"]
+        volumeMounts:
+          - name: gis-pvc
+            mountPath: /data
+      restartPolicy: Never
+      volumes:
+        - name: gis-pvc
+          persistentVolumeClaim:
+            claimName : gis-pvc
+      securityContext:
+        runAsUser: 1000
+        runAsGroup: 1000
