@@ -1,18 +1,22 @@
 apiVersion: argoproj.io/v1alpha1
-kind: Workflow
+kind: WorkflowTemplate
 metadata:
-  name: argo-workflow
+  name: tileset-workflow-template
   namespace: group4
 
 spec:
   entrypoint: extract-geojson
+
+  arguments:
+    parameters:
+      - name: url
+        value: "https://dataworks.calderdale.gov.uk/download/emg4m/62p/companies-march-2025.geojson"
   
   templates:
   - name: extract-geojson
     inputs:
       parameters:
       - name: url
-        value: "https://dataworks.calderdale.gov.uk/download/emg4m/62p/companies-march-2025.geojson"
     outputs: {}
     container:
       name: main

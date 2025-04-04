@@ -1,7 +1,7 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Workflow
 metadata:
-  generateName: workflow-
+  name: argo-workflow
   namespace: group4
 spec:
   entrypoint: hello
