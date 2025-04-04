@@ -1,7 +1,7 @@
 apiVersion: argoproj.io/v1alpha1
 kind: WorkflowTemplate
 metadata:
-  name: tileset-workflow-template
+  name: map-reduce-workflow-template
   namespace: group4
 
 spec:

@@ -1,0 +1,15 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Workflow
+metadata:
+  name: tileset-workflow
+  namespace: group4
+spec:
+  entrypoint: extract-geojson
+  
+  arguments:
+    parameters:
+      - name: url
+        value: "https://dataworks.calderdale.gov.uk/download/emg4m/62p/companies-march-2025.geojson"
+  
+  workflowTemplateRef:
+    name: tileset-workflow-template
